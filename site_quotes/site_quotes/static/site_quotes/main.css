@@ -109,3 +109,27 @@ ul.pager {
 .zyte {
   color: #b02cce;
 }
+
+.pager {
+  margin-top: 20px;
+}
+
+.pager li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.pager .previous a,
+.pager .next a {
+  list-style-type: none;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  color: #333;
+  padding: 5px 10px;
+  text-decoration: none;
+}
+
+.pager .previous a:hover,
+.pager .next a:hover {
+  background-color: #ddd;
+}
