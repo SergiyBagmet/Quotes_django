@@ -4,11 +4,18 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h4 class="display-4">{{ author.fullname }}</h4>
-            <p class="lead">Born: {{ author.born_date }} {{ author.born_location }}</p>
-            <p>{{ author.description }}</p>
+            <div class="card">
+                <div class="card-header">
+                    <h4>{{ author.fullname }}</h4>
+                </div>
+                <div class="card-body ml-0">
+                    <p class="card-text">Born: {{ author.born_date }} {{ author.born_location }}</p>
+                    <p class="card-text">{{ author.description }}</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 {% endblock %}
+
 

@@ -86,8 +86,14 @@ body {
 
 .header-box p {
   margin-top: 30px;
+  float: left;
+}
+
+.header-box p.login{
+  margin-top: 30px;
   float: right;
 }
+
 
 .author-details  {
   width: 80%;
@@ -117,8 +123,4 @@ ul.pager {
 .author-description {
     text-align: justify;
     margin-bottom: 20px;
-}
-
-.list-group-item {
-    white-space: normal;
 }

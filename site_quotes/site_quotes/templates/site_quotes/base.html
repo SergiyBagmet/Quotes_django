@@ -15,14 +15,20 @@
     <div class="container">
         <div class="row header-box pt-3">
             <div class="col-md-8">
-                <h1>
-                    <a href="/" style="text-decoration: none">Quotes to Scrape</a>
-                </h1>
+                <div class="d-flex mb-3">
+                    <h1 class="me-auto p-2">
+                        <a href="/" style="text-decoration: none">Quotes to Scrape</a>
+                    </h1>
+                    <p class="ms-auto p-2">
+                        <a href="/new_quote" class="btn btn-primary">New Quote</a>
+                    </p>
+                </div>
                 {% block content %}
                 {% endblock %}
             </div>
             <div class="col-md-4">
-                <p>
+
+                <p class="login">
                     <a href="/login" class="btn btn-warning">Signup</a>
                     <a href="/login" class="btn btn-info">Login</a>
                     <a href="/login" class="btn btn-dark">Logout</a>
