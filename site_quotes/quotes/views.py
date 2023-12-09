@@ -1,9 +1,8 @@
-from urllib.request import Request
-
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from .models import Quote, Author
+from .form import QuoteForm
+from .models import Quote, Author, Tag
 
 
 # Create your views here.
@@ -21,3 +20,31 @@ def main(request):
 def author_info(request, author_id):
     author = Author.objects.get(id=author_id)
     return render(request, 'quotes/author.html', {'author': author})
+
+
+def new_quote(request):
+    if request.method == 'POST':
+        form = QuoteForm(request.POST)
+        if form.is_valid():
+            quote_text = form.cleaned_data['quote']
+            # Extract and split the tags from the form data
+            tags_name = form.cleaned_data['tags'].split(',')
+
+            # Get or create the author from the form data
+            author_name = form.cleaned_data['author']
+            author, _ = Author.objects.get_or_create(fullname=author_name)
+
+            # Create a new quote and associate it with the author
+            quote = Quote(quote=quote_text, author=author)
+            quote.save()
+
+            # Set the tags for the new quote
+            for tag_name in tags_name:
+                tag, _ = Tag.objects.get_or_create(name=tag_name)
+                quote.tags.add(tag)
+
+            # Redirect the user to the home page
+            return redirect('/')
+    else:
+        form = QuoteForm()
+    return render(request, 'quotes/new_quote.html', {'form': form})

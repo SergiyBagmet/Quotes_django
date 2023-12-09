@@ -20,7 +20,7 @@
                         <a href="/" style="text-decoration: none">Quotes to Scrape</a>
                     </h1>
                     <p class="ms-auto p-2">
-                        <a href="/new_quote" class="btn btn-primary">New Quote</a>
+                        <a href="{% url 'quotes:new_quote' %}" class="btn btn-primary">New Quote</a>
                     </p>
                 </div>
                 {% block content %}
