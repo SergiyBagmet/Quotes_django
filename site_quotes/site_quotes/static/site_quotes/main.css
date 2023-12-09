@@ -110,26 +110,15 @@ ul.pager {
   color: #b02cce;
 }
 
-.pager {
-  margin-top: 20px;
+.author-details {
+    width: 80%;
 }
 
-.pager li {
-  display: inline-block;
-  margin-right: 10px;
+.author-description {
+    text-align: justify;
+    margin-bottom: 20px;
 }
 
-.pager .previous a,
-.pager .next a {
-  list-style-type: none;
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  color: #333;
-  padding: 5px 10px;
-  text-decoration: none;
-}
-
-.pager .previous a:hover,
-.pager .next a:hover {
-  background-color: #ddd;
+.list-group-item {
+    white-space: normal;
 }

@@ -9,7 +9,7 @@
                     {{quote.quote}}
                 </span>
             <span>by <small class="author" itemprop="author">{{quote.author.fullname}}</small>
-                <a href="/author/{{quote.author.fullname}}">(about)</a>
+                <a href="{% url 'quotes:author_info' quote.author.id %}">(about)</a>
                 </span>
             <div class="tags">
                 Tags:
@@ -30,7 +30,7 @@
 
                 {% endif %}
                 {% if quotes_page.has_next %}
-                    <li class="next">
+                    <li class="page-item">
                         <a class="page-link " href="?page={{ quotes_page.next_page_number }}">
                             Next <span aria-hidden="true">→</span>
                         </a>

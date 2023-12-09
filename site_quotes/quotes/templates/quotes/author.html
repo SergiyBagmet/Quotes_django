@@ -1,0 +1,14 @@
+{% extends 'site_quotes/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="display-4">{{ author.fullname }}</h4>
+            <p class="lead">Born: {{ author.born_date }} {{ author.born_location }}</p>
+            <p>{{ author.description }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
