@@ -17,6 +17,16 @@ def main(request):
     return render(request, 'quotes/index.html', {'quotes_page': quotes_page})
 
 
+def quotes_by_tag(request, tag_name):
+    quotes = Quote.objects.filter(tags__name=tag_name)
+    paginator = Paginator(quotes, 10)  # показывать по 10 записей на странице.
+
+    page_number = request.GET.get('page')
+    quotes_page = paginator.get_page(page_number)
+
+    return render(request, 'quotes/index.html', {'quotes_page': quotes_page})
+
+
 def author_info(request, author_id):
     author = Author.objects.get(id=author_id)
     return render(request, 'quotes/author.html', {'author': author})
