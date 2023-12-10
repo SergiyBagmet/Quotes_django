@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 from .form import QuoteForm
 from .models import Quote, Author, Tag
@@ -32,6 +33,7 @@ def author_info(request, author_id):
     return render(request, 'quotes/author.html', {'author': author})
 
 
+@login_required
 def new_quote(request):
     if request.method == 'POST':
         form = QuoteForm(request.POST)

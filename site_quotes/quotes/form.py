@@ -1,7 +1,5 @@
 from django import forms
 
-from .models import Quote
-
 
 class QuoteForm(forms.Form):
     quote = forms.CharField(widget=forms.Textarea(
