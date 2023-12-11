@@ -1,0 +1,24 @@
+{% extends 'site_quotes/base.html' %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.fullname.label_tag }}
+            {{ form.fullname.as_widget }}
+        </div>
+        <div class="mb-3">
+            {{ form.born_date.label_tag }}
+            {{ form.born_date.as_widget }}
+        </div>
+        <div class="mb-3">
+            {{ form.born_location.label_tag }}
+            {{ form.born_location.as_widget }}
+        </div>
+        <div class="mb-3">
+            {{ form.description.label_tag }}
+            {{ form.description.as_widget }}
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+{% endblock %}
