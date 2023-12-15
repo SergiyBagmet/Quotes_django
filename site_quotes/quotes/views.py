@@ -44,8 +44,8 @@ def new_quote(request):
             tags_name = form.cleaned_data['tags'].split(',')
 
             # Get or redirect the author from the form data
-            choice_button_pressed = form.cleaned_data['check_author_choice']
-            input_button_pressed = form.cleaned_data['check_author_input']
+            choice_button_pressed = form.cleaned_data['check_author_group']
+            input_button_pressed = form.cleaned_data['check_author_group']
 
             author = None
             if choice_button_pressed:
@@ -60,7 +60,7 @@ def new_quote(request):
                     request.session['quote_text'] = quote_text
                     request.session['tags_name'] = tags_name
                     request.session['author_input'] = author.fullname
-                    return redirect('quotes/new_author.html')
+                    return redirect('quotes:new_author')
 
             # Create a new quote and associate it with the author
             quote = Quote(quote=quote_text, author=author)

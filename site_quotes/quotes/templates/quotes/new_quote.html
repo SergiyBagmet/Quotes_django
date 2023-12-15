@@ -11,20 +11,23 @@
             {{ form.tags.label_tag }}
             {{ form.tags.as_widget }}
         </div>
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="radio" name="check_author_group" id="check_author_choice">
-            <label class="form-check-label" for="check_author_choice">
-                {{ form.author_choice.label_tag }}
-                {{ form.author_choice.as_widget }}
-            </label>
-        </div>
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="radio" name="check_author_group" id="check_author_input">
-            <label class="form-check-label" for="check_author_input">
-                {{ form.author_input.label_tag }}
-                {{ form.author_input.as_widget }}
-            </label>
-        </div>
+        {% for choice in form.check_author_group.field.choices %}
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="radio" name="{{ form.check_author_group.name }}" value="{{ choice.0 }}" id="{{ choice.0 }}">
+                <label class="form-check-label" for="{{ choice.0 }}">{{ choice.1 }}</label>
+            </div>
+            {% if choice.1 == "author_choice" %}
+                <div class="form-check mb-3">
+                    {{ form.author_choice.label_tag }}
+                    {{ form.author_choice.as_widget }}
+                </div>
+            {% else %}
+                <div class="form-check mb-3">
+                    {{ form.author_input.label_tag }}
+                    {{ form.author_input.as_widget }}
+                </div>
+            {% endif %}
+        {% endfor %}
         <button type="submit" class="btn btn-primary">Отправить</button>
     </form>
 {% endblock %}

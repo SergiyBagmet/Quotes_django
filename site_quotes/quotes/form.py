@@ -20,26 +20,33 @@ class QuoteForm(forms.Form):
         }
     )
     )
-    author_choice = forms.ModelChoiceField(queryset=Author.objects.all(), empty_label=None)
+    author_choice = forms.ModelChoiceField(to_field_name='fullname', queryset=Author.objects.all(), widget=forms.Select(
+        attrs={
+            'id': 'author_choice',
+            'class': 'form-control',
+            'placeholder': 'Введите автора'
+        }
+    ), required=False)
 
-    author_input = forms.ChoiceField(widget=forms.TextInput(
+    author_input = forms.CharField(widget=forms.TextInput(
         attrs={
             'id': 'authorInput',
             'class': 'form-control',
             'placeholder': 'Введите автора'
         }
-     )
-     )
-    check_author_choice = forms.BooleanField(required=False)
-    check_author_input = forms.BooleanField(required=False)
+    ), required=False
+    )
+    CHOICES = ("1", "author_choice"), ("2", "author_input")
+    check_author_group = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['author_choice'].choices = [(author.fullname, author.fullname) for author in Author.objects.all()]
 
-    class Meta:
-        model = Author
-        fields = ['author_choice']
+    def clean(self):
+        cleaned_data = super().clean()
+        print(cleaned_data)
+        return cleaned_data
 
 
 class AuthorForm(forms.Form):
