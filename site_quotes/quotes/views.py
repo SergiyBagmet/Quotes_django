@@ -16,7 +16,9 @@ def main(request):
     page_number = request.GET.get('page')
     quotes_page = paginator.get_page(page_number)
 
-    return render(request, 'quotes/index.html', {'quotes_page': quotes_page})
+    top_tags = Tag.objects.order_by('-popularity')[:5]
+
+    return render(request, 'quotes/index.html', {'quotes_page': quotes_page, 'top_tags': top_tags})
 
 
 def quotes_by_tag(request, tag_name):
@@ -26,7 +28,14 @@ def quotes_by_tag(request, tag_name):
     page_number = request.GET.get('page')
     quotes_page = paginator.get_page(page_number)
 
-    return render(request, 'quotes/index.html', {'quotes_page': quotes_page})
+    tag = Tag.objects.get(name=tag_name)
+    # Увеличиваем счетчик популярности тега
+    tag.popularity += 1
+    tag.save()
+
+    top_tags = Tag.objects.order_by('-popularity')[:5]
+
+    return render(request, 'quotes/index.html', {'quotes_page': quotes_page, 'top_tags': top_tags})
 
 
 def author_info(request, author_id):

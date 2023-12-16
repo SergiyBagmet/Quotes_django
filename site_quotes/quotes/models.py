@@ -13,6 +13,7 @@ class Author(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True, null=False)
+    popularity = models.IntegerField(default=0)
 
 
 class Quote(models.Model):

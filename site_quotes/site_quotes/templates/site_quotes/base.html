@@ -20,19 +20,18 @@
                         <h1 class="me-auto p-2">
                             <a href="/" style="text-decoration: none">Quotes to Scrape</a>
                         </h1>
-                        {% if user.is_authenticated %}
-                        <p class="ms-auto p-2">
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    {% if user.is_authenticated %}
+                    <p class="ms-auto p-2">
                             <a href="{% url 'quotes:new_quote' %}" class="btn btn-primary">add quote</a>
                         </p>
                         <p class="ms-auto p-2">
                             <a href="{% url 'quotes:new_author' %}" class="btn btn-primary">add author</a>
                         </p>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-6 col-md-4">
                     <p class="login ms-auto p-2">
-                        {% if user.is_authenticated %}
+
                         <a href="{% url 'users:logout' %}" class="btn btn-dark">Logout</a>
                         {% else %}
                         <a href="{% url 'users:signup' %}" class="btn btn-warning">Signup</a>
@@ -45,8 +44,13 @@
                 {% block content %}
                 {% endblock %}
             </div>
-            <div class="col-md-4">
-                TOP TAGS
+            <div class="col-md-4 tags-box">
+            <h2>Top tags</h2>
+            {% for tag in top_tags %}
+                <span class="tag-item">
+                    <a class="tag" href="/tag/{{ tag.name }}/">{{ tag.name }}</a>
+                </span>
+            {% endfor %}
             </div>
         </div>
     </div>
