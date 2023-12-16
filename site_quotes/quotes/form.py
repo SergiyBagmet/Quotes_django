@@ -36,7 +36,7 @@ class QuoteForm(forms.Form):
         }
     ), required=False
     )
-    CHOICES = ("1", "author_choice"), ("2", "author_input")
+    CHOICES = ("choice", "author_choice"), ("input", "author_input")
     check_author_group = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
 
     def __init__(self, *args, **kwargs):
@@ -45,7 +45,13 @@ class QuoteForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
-        print(cleaned_data)
+        if cleaned_data.get('check_author_group') == "choice":
+            cleaned_data["author"] = cleaned_data.get('author_choice')
+        elif cleaned_data.get('check_author_group') == "input":
+            try:
+                cleaned_data["author"] = Author.objects.get(fullname=cleaned_data['author_input'])
+            except Author.DoesNotExist:
+                cleaned_data["author"] = None
         return cleaned_data
 
 
