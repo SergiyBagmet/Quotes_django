@@ -9,17 +9,51 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import environ
+from django.core.exceptions import ImproperlyConfigured
 
+import os
 from pathlib import Path
 
+
+# Set the project base directory
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+environ.Env.read_env()
+
+
+def get_env_variable(var_name):
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = "set the %s environment variable" % var_name
+        raise ImproperlyConfigured(error_msg)
+
+
+PG_DB_NAME = env("PG_DB_NAME")
+PG_USER = env("PG_USER")
+PG_PASSWORD = env("PG_PASSWORD")
+PG_DOMAIN = env("PG_DOMAIN")
+PG_PORT = env("PG_PORT")
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.meta.ua'
+EMAIL_PORT = 465
+EMAIL_STARTTLS = False
+EMAIL_USE_SSL = True
+EMAIL_USE_TLS = False
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q35)z&!_#tu0ih6y7l3d8#lgi1)_e1+fer-^8i#&k+ay5g1sjc'
+SECRET_KEY = get_env_variable('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,11 +110,11 @@ WSGI_APPLICATION = 'site_quotes.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "site_quotes",
-        "USER": "postgres",
-        "PASSWORD": "123456",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
+        "NAME": PG_DB_NAME,
+        "USER": PG_USER,
+        "PASSWORD": PG_PASSWORD,
+        "HOST": PG_DOMAIN,
+        "PORT": PG_PORT,
     }
 }
 
