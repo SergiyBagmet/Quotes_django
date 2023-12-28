@@ -7,7 +7,7 @@
     {% if messages %}
     <div class="messages">
         {% for message in messages %}
-        <span {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</span>
+        <span {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</span>
         {% endfor %}
     </div>
     {% endif %}
@@ -22,18 +22,23 @@
         {% csrf_token %}
         <div class="mb-3">
             <label class="form-label">Username
-                {{ form.username }}
+                {{form.username}}
             </label>
             <span>{{form.errors.username}}</span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Password
-                {{ form.password }}
-            </label>
-            <span>{{form.errors.password}}</span>
+            <div class="mb-3">
+                <label class="form-label">Password
+                    {{form.password}}
+                </label>
+                <span>{{form.errors.password}}</span>
+            </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            <div class="small">
+                <a href="{% url 'users:password_reset' %}" class="text-center"><i>Forgot Password?</i></a>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-secondary">Reset</button>
     </form>
 </div>
 {% endblock %}
